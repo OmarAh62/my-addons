@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="custom_aged_report.AgedPartnerBalanceFilters" t-inherit="account_reports.AccountReportFiltersCustomizable" t-inherit-mode="primary">
+        <xpath expr="//div[@id='filter_extra_options']" position="before">
+            <div id="filter_salesperson">
+                <Dropdown menuClass="'account_report_filter partner'">
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-folder-open me-1"/>Salesperson
+                    </button>
+                    <t t-set-slot="content">
+                        <div class="dropdown-item d-flex align-items-center gap-2">
+                            <label class="mb-0 me-2" style="min-width: 90px;">Salesperson</label>
+                            <MultiRecordSelector t-props="getMultiRecordSelectorProps('res.users', 'salesperson_ids')"/>
+                        </div>
+                    </t>
+                </Dropdown>
+            </div>
+            <div id="filter_accounts">
+                <Dropdown menuClass="'account_report_filter partner'">
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-folder-open me-1"/>Accounts
+                    </button>
+                    <t t-set-slot="content">
+                        <div class="dropdown-item d-flex align-items-center gap-2">
+                            <label class="mb-0 me-2" style="min-width: 90px;">Accounts</label>
+                            <MultiRecordSelector t-props="getMultiRecordSelectorProps('account.account', 'account_ids')"/>
+                        </div>
+                    </t>
+                </Dropdown>
+            </div>
+            <div id="filter_currencies">
+                <Dropdown menuClass="'account_report_filter partner'">
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-money me-1"/>Currency
+                    </button>
+                    <t t-set-slot="content">
+                        <t t-foreach="currencyChoices" t-as="choice" t-key="'currency_' + (choice.id || 'all')">
+                            <DropdownItem
+                                class="{ 'selected': (controller.options.report_currency_filter_id || false) === (choice.id || false) }"
+                                onSelected="() => this.setCurrency(choice.id)"
+                            >
+                                <t t-esc="choice.name"/>
+                            </DropdownItem>
+                        </t>
+                    </t>
+                </Dropdown>
+            </div>
+            <div id="filter_column_count">
+                <Dropdown>
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-columns me-1"/>
+                        <t t-out="selectedColumnCountLabel"/>
+                    </button>
+                    <t t-set-slot="content">
+                        <t t-foreach="columnCountChoices" t-as="choice" t-key="choice.id">
+                            <DropdownItem
+                                class="{ 'selected': controller.options.column_count === choice.id }"
+                                onSelected="() => this.setColumnCount(choice.id)"
+                            >
+                                <t t-esc="choice.name"/>
+                            </DropdownItem>
+                        </t>
+                    </t>
+                </Dropdown>
+            </div>
+            <t t-if="'aging_based_on' in controller.options">
+                <div>
+                    <t t-call="account_reports.AccountReportAgingBasedOn"/>
+                </div>
+            </t>
+            <t>
+                <div id="filter_aging_interval">
+                    <t t-call="account_reports.AccountReportAgingInterval"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='filter_extra_options']" position="replace">
+            <t t-call="custom_aged_report.AgedPartnerBalanceFilterExtraOptions"/>
+        </xpath>
+    </t>
+
+    <t t-name="custom_aged_report.AgedPartnerBalanceFilterExtraOptions" t-inherit="account_reports.AgedPartnerBalanceFilterExtraOptions">
+        <xpath expr="//DropdownItem[contains(@class, 'filter_show_all_hook')]" position="after">
+            <div class="dropdown-divider"/>
+            <DropdownItem
+                t-foreach="paymentLineModeChoices"
+                t-as="choice"
+                t-key="'payment_mode_' + choice.id"
+                class="{ 'selected': paymentLineMode === choice.id }"
+                onSelected="() => this.setPaymentLineMode(choice.id)"
+                closingMode="'none'"
+            >
+                <t t-esc="choice.name"/>
+            </DropdownItem>
+            <DropdownItem
+                t-foreach="groupbyModeChoices"
+                t-as="choice"
+                t-key="'groupby_mode_' + choice.id"
+                class="{ 'selected': controller.options.groupby_mode === choice.id }"
+                onSelected="() => this.setGroupbyMode(choice.id)"
+                closingMode="'none'"
+            >
+                <t t-esc="choice.name"/>
+            </DropdownItem>
+        </xpath>
+    </t>
+</templates>

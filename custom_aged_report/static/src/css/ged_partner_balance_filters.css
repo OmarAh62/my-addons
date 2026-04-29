@@ -1,0 +1,19 @@
+.o_salesperson_filter_dropdown .btn {
+    min-width: 132px;
+    text-align: left;
+}
+
+.o_salesperson_dropdown_menu {
+    min-width: 300px;
+    padding: 8px;
+}
+
+.o_salesperson_search_input {
+    margin-bottom: 8px;
+}
+
+.o_salesperson_dropdown_menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+}
