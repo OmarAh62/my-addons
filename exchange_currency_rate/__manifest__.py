@@ -1,0 +1,20 @@
+{
+    'name': 'Manual Currency Exchange Rate',
+    'version': '19.0.1.2.0',
+    'category': 'Accounting',
+    'summary': 'Manual exchange rate on invoices, payments and payment journal entries.',
+    'description': 'Manual exchange rate on invoices, payments and payment journal entries.',
+    'author': 'Omar Ahmed',
+    'company': 'Premium Tech Company',
+    'depends': ['base', 'account'],
+    'data': [
+        'views/account_move_views.xml',
+        'views/account_payment_register_views.xml',
+        'views/account_payment_views.xml',
+    ],
+    'images': ['static/description/icon.png'],
+    'license': 'OPL-1',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}
