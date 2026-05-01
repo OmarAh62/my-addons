@@ -12,7 +12,7 @@
         'views/account_payment_register_views.xml',
         'views/account_payment_views.xml',
     ],
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/icon1.png'],
     'license': 'OPL-1',
     'installable': True,
     'auto_install': False,
