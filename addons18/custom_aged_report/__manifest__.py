@@ -1,8 +1,7 @@
 {
     'name': 'Custom Aged Partner Balance',
-    'version': '19.0.1.0.4',
+    'version': '18.0.1.0.4',
     'category': 'Accounting',
-    'summary': 'Odoo 19 light version with custom aged report filters enabled',
     'author': 'Omar Ahmed',
     'depends': ['account_accountant', 'account_reports'],
     'data': [
